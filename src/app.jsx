@@ -3,6 +3,16 @@ import logo from "../assets/images/logo-large.svg";
 import personalBest from "../assets/images/icon-personal-best.svg";
 
 const App = () => {
+  const difficulties = [
+    { id: "easy", label: "Easy" },
+    { id: "medium", label: "Medium" },
+    { id: "hard", label: "Hard" },
+  ];
+  const mode = [
+    { name: "time", label: "Time(60s)" },
+    { name: "passage", label: "Passage" },
+  ];
+
   return (
     <div className="font-sora mx-auto container items-center p-8 text-neutral-500 ">
       <header className="grid gap-16">
@@ -28,82 +38,46 @@ const App = () => {
           <div className="flex divide-x divide-neutral-800">
             <div className="flex pr-8 gap-2">
               <h2>Difficulty:</h2>
-              <form className="flex gap-2" action="">
-                <div>
-                  <input
-                    className="hidden peer"
-                    type="radio"
-                    name="difficulty"
-                    id="easy"
-                  />
-                  <label
-                    className="p-1 px-2 text-neutral-300 rounded-md border border-neutral-600 peer-checked:border-blue-500 peer-checked:text-blue-500"
-                    htmlFor="easy"
-                  >
-                    Easy
-                  </label>
-                </div>
-                <div>
-                  <input
-                    className="hidden peer"
-                    type="radio"
-                    name="difficulty"
-                    id="medium"
-                  />
-                  <label
-                    className="p-1 px-2 text-neutral-300 rounded-md border border-neutral-600 peer-checked:border-blue-500 peer-checked:text-blue-500"
-                    htmlFor="medium"
-                  >
-                    Medium
-                  </label>
-                </div>
-                <div>
-                  <input
-                    className="hidden peer"
-                    type="radio"
-                    name="difficulty"
-                    id="hard"
-                  />
-                  <label
-                    className="p-1 px-2 text-neutral-300 rounded-md border border-neutral-600 peer-checked:border-blue-500 peer-checked:text-blue-500"
-                    htmlFor="hard"
-                  >
-                    Hard
-                  </label>
-                </div>
+              <form className="flex gap-2">
+                {difficulties.map((d, i) => (
+                  <div key={d.id}>
+                    <input
+                      className="hidden peer"
+                      type="radio"
+                      defaultChecked={i === 0}
+                      name="difficulty"
+                      id={d.id}
+                    />
+                    <label
+                      className="cursor-pointer p-1 px-2 text-neutral-300 rounded-md border border-neutral-600 peer-checked:border-blue-500 peer-checked:text-blue-500"
+                      htmlFor={d.id}
+                    >
+                      {d.label}
+                    </label>
+                  </div>
+                ))}
               </form>
             </div>
             <div className="flex pl-8 gap-2">
               <h2>Mode:</h2>
-              <form className="flex gap-2" action="">
-                <div>
-                  <input
-                    className="hidden peer"
-                    type="radio"
-                    name="mode"
-                    id="time"
-                  />
-                  <label
-                    className="p-1 px-2 text-neutral-300 rounded-md border border-neutral-600 peer-checked:border-blue-500 peer-checked:text-blue-500"
-                    htmlFor="time"
-                  >
-                    Time(60s)
-                  </label>
-                </div>
-                <div>
-                  <input
-                    className="hidden peer"
-                    type="radio"
-                    name="mode"
-                    id="passage"
-                  />
-                  <label
-                    className="py-1 px-2 text-neutral-300 rounded-md border border-neutral-600 peer-checked:border-blue-500 peer-checked:text-blue-500"
-                    htmlFor="passage"
-                  >
-                    Passage
-                  </label>
-                </div>
+              <form className="flex gap-2">
+                {mode.map((n, i) => (
+                  <div key={n.name}>
+                    <input
+                      className="hidden peer"
+                      type="radio"
+                      defaultChecked={i === 0}
+                      name="mode"
+                      id={n.name}
+                    />
+                    <label
+                      className="cursor-pointer p-1 px-2 text-neutral-300 rounded-md border border-neutral-600 peer-checked:border-blue-500 peer-checked:text-blue-500"
+                      htmlFor={n.name}
+                    >
+                      {n.label}
+                    </label>
+                  </div>
+                ))}
               </form>
             </div>
           </div>
