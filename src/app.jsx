@@ -118,6 +118,7 @@ const App = () => {
             name="test"
             id="test"
             rows="10"
+            spellCheck="false"
           ></textarea>
         </form>
       </main>
