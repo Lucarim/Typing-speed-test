@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import logo from "../assets/images/logo-large.svg";
 import personalBest from "../assets/images/icon-personal-best.svg";
-import restart from "../assets/images/icon-restart.svg";
+import restartIcon from "../assets/images/icon-restart.svg";
 import json from "../data.json";
 
 const App = () => {
   const [userInput, setUserInput] = useState("");
   const [difficulty, setDifficulty] = useState("easy");
   const [mode, setMode] = useState("time");
+  const [started, setStarted] = useState(false);
+  const [time, setTime] = useState(60);
   const [text, setText] = useState(
     json[difficulty][Math.floor(Math.random() * 10)].text,
   );
@@ -20,6 +22,8 @@ const App = () => {
     { name: "time", label: "Time(60s)" },
     { name: "passage", label: "Passage" },
   ];
+  const start = useRef(null);
+  const restart = useRef(null);
 
   return (
     <div className="font-sora mx-auto container items-center p-8 text-neutral-500 grid gap-8 divide-y-2 divide-neutral-800">
@@ -103,9 +107,29 @@ const App = () => {
           </div>
         </div>
       </header>
-      <main className="pb-6">
-        <form className="grid grid-cols-1">
-          <p className="row-1 col-1 z-0 text-[2.5rem] leading-tight">
+      <main className="">
+        <form
+          onClick={(event) => {
+            event.preventDefault();
+          }}
+          className="grid grid-cols-1"
+        >
+          {!started && (
+            <div className="row-1 col-1 w-full h-full z-10 grid place-items-center">
+              <div className="grid place-items-center gap-4">
+                <button
+                  onClick={(event) => {
+                    setStarted(true);
+                  }}
+                  className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-md cursor-pointer"
+                >
+                  Start Typing Test
+                </button>
+                <p className="text-white">Or click the text and start typing</p>
+              </div>
+            </div>
+          )}
+          <p className="row-1 col-1 z-0 text-[2.5rem] leading-tight pb-6 blur-sm">
             {text.split("").map((char, i) => {
               if (userInput[i] === char)
                 return (
@@ -139,15 +163,20 @@ const App = () => {
           ></textarea>
         </form>
       </main>
-      <footer className="mx-auto">
-        <button
-          onClick={() => setUserInput("")}
-          className="flex items-center cursor-pointer gap-2 bg-neutral-800 hover:bg-neutral-700 text-white font-bold py-3 px-4 rounded-md"
-        >
-          Restart Test
-          <img src={restart} alt="Restart Test" />
-        </button>
-      </footer>
+      {started && (
+        <footer className="mx-auto">
+          <button
+            onClick={() => {
+              setUserInput("");
+              setStarted(false);
+            }}
+            className="flex items-center cursor-pointer gap-2 bg-neutral-800 hover:bg-neutral-700 text-white font-bold py-3 px-4 rounded-md"
+          >
+            Restart Test
+            <img src={restartIcon} alt="Restart Test" />
+          </button>
+        </footer>
+      )}
     </div>
   );
 };
