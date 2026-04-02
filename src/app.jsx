@@ -129,7 +129,9 @@ const App = () => {
               </div>
             </div>
           )}
-          <p className="row-1 col-1 z-0 text-[2.5rem] leading-tight pb-6 blur-sm">
+          <p
+            className={`row-1 col-1 z-0 text-[2.5rem] leading-tight pb-6 ${!started ? "blur-sm" : ""}`}
+          >
             {text.split("").map((char, i) => {
               if (userInput[i] === char)
                 return (
